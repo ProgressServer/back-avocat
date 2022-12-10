@@ -5,7 +5,8 @@
   "author": "Progress-IT <progress.it.mg@gmail.com> (https://github.com/Progress-IT)",
   "repository": "https://github.com/Progress-IT/avocat-depoch-back.git",
   "scripts": {
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "start": "node src/app.js"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
