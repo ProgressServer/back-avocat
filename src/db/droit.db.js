@@ -1,0 +1,25 @@
+module.exports = droits = [
+    {
+        "title": 'Droit routier pour les nuls',
+        children: [
+            {
+                "title": 'Excès de vitesse',
+                "content": 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar lacinia sodales. Morbi vel scelerisque eros. Sed at lacinia ipsum, non mollis enim. Vivamus fermentum varius elementum. Integer elementum nulla id massa volutpat, ac volutpat lectus fringilla. Integer vitae lacus enim. Sed vel dictum nisl. Curabitur erat nibh, placerat in nibh ac, venenatis facilisis sem. Sed urna dui, suscipit vel nunc vitae, bibendum congue diam. Fusce vitae lacus sed magna eleifend sodales. Sed mi nisl, dictum quis pharetra in, tempor vel est. Suspendisse sapien tortor, rhoncus sed purus id, commodo cursus est. Aenean ac sollicitudin diam. Vivamus nec suscipit sapien. Sed rutrum ex quis dictum vulputate. Aenean et pellentesque dui.',
+                "more": 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar lacinia sodales. Morbi vel scelerisque eros. Sed at lacinia ipsum, non mollis enim. Vivamus fermentum varius elementum. Integer elementum nulla id massa volutpat, ac volutpat lectus fringilla. Integer vitae lacus enim. Sed vel dictum nisl. Curabitur erat nibh, placerat in nibh ac, venenatis facilisis sem. Sed urna dui, suscipit vel nunc vitae, bibendum congue diam. Fusce vitae lacus sed magna eleifend sodales. Sed mi nisl, dictum quis pharetra in, tempor vel est. Suspendisse sapien tortor, rhoncus sed purus id, commodo cursus est. Aenean ac sollicitudin diam. Vivamus nec suscipit sapien. Sed rutrum ex quis dictum vulputate. Aenean et pellentesque dui.'
+            },
+            {
+                "title": 'Accident',
+                "content": 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar lacinia sodales. Morbi vel scelerisque eros. Sed at lacinia ipsum, non mollis enim. Vivamus fermentum varius elementum. Integer elementum nulla id massa volutpat, ac volutpat lectus fringilla. Integer vitae lacus enim. Sed vel dictum nisl. Curabitur erat nibh, placerat in nibh ac, venenatis facilisis sem. Sed urna dui, suscipit vel nunc vitae, bibendum congue diam. Fusce vitae lacus sed magna eleifend sodales. Sed mi nisl, dictum quis pharetra in, tempor vel est. Suspendisse sapien tortor, rhoncus sed purus id, commodo cursus est. Aenean ac sollicitudin diam. Vivamus nec suscipit sapien. Sed rutrum ex quis dictum vulputate. Aenean et pellentesque dui.',
+            },
+        ]
+    },
+    {
+        "title": 'Droit pénal pour les nuls',
+        "content": 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar lacinia sodales. Morbi vel scelerisque eros. Sed at lacinia ipsum, non mollis enim. Vivamus fermentum varius elementum. Integer elementum nulla id massa volutpat, ac volutpat lectus fringilla. Integer vitae lacus enim. Sed vel dictum nisl. Curabitur erat nibh, placerat in nibh ac, venenatis facilisis sem. Sed urna dui, suscipit vel nunc vitae, bibendum congue diam. Fusce vitae lacus sed magna eleifend sodales. Sed mi nisl, dictum quis pharetra in, tempor vel est. Suspendisse sapien tortor, rhoncus sed purus id, commodo cursus est. Aenean ac sollicitudin diam. Vivamus nec suscipit sapien. Sed rutrum ex quis dictum vulputate. Aenean et pellentesque dui.',
+        "more": 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar lacinia sodales. Morbi vel scelerisque eros. Sed at lacinia ipsum, non mollis enim. Vivamus fermentum varius elementum. Integer elementum nulla id massa volutpat, ac volutpat lectus fringilla. Integer vitae lacus enim. Sed vel dictum nisl. Curabitur erat nibh, placerat in nibh ac, venenatis facilisis sem. Sed urna dui, suscipit vel nunc vitae, bibendum congue diam. Fusce vitae lacus sed magna eleifend sodales. Sed mi nisl, dictum quis pharetra in, tempor vel est. Suspendisse sapien tortor, rhoncus sed purus id, commodo cursus est. Aenean ac sollicitudin diam. Vivamus nec suscipit sapien. Sed rutrum ex quis dictum vulputate. Aenean et pellentesque dui.'
+    },
+    {
+        "title": 'Droit familial pour les nuls',
+        "content": 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut pulvinar lacinia sodales. Morbi vel scelerisque eros. Sed at lacinia ipsum, non mollis enim. Vivamus fermentum varius elementum. Integer elementum nulla id massa volutpat, ac volutpat lectus fringilla. Integer vitae lacus enim. Sed vel dictum nisl. Curabitur erat nibh, placerat in nibh ac, venenatis facilisis sem. Sed urna dui, suscipit vel nunc vitae, bibendum congue diam. Fusce vitae lacus sed magna eleifend sodales. Sed mi nisl, dictum quis pharetra in, tempor vel est. Suspendisse sapien tortor, rhoncus sed purus id, commodo cursus est. Aenean ac sollicitudin diam. Vivamus nec suscipit sapien. Sed rutrum ex quis dictum vulputate. Aenean et pellentesque dui.',
+    }
+]
