@@ -1,0 +1,50 @@
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+
+            <form class="login100-form validate-form" method="post" [formGroup]="formGroup" (ngSubmit)="login()">
+                <span class="login100-form-title p-b-26">
+                    Avocat de poche
+                </span>
+                <span class="login100-form-title p-b-48" style="margin-top: 5%;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" fill="currentColor"
+                        class="bi bi-bag-dash" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M5.5 10a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H6a.5.5 0 0 1-.5-.5z" />
+                        <path
+                            d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                    </svg>
+                </span>
+
+                <div class="bodyLogin">
+                    <div class="wrap-input100 validate-input">
+                        <small>Email:</small>
+                        <input class="input100" type="email" [(ngModel)]="email" name="email" formControlName="email">
+                        <span class="focus-input100" placeholder="Email"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <small>Mot de pass:</small>
+                        <span class="btn-show-pass">
+                            <i class="zmdi zmdi-eye"></i>
+                        </span>
+                        <input class="input100" type="password" [(ngModel)]="password" name="password"
+                            formControlName="password">
+                        <span class="focus-input100"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn">
+                                Login
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="text-center p-t-115">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

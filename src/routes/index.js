@@ -2,6 +2,8 @@ const router = require('express').Router();
 const userRouter = require('./user.routes');
 const postRouter = require('./post.routes');
 const droitRouter = require('./droit.routes');
+const discussionRouter = require('./discussion.routes');
+const specialityRouter = require('./speciality.routes');
 
 const verifyToken = (req, res, next) => {
     const token = req.headers["authorization"] || req.body.token || req.query.token || req.headers["x-access-token"];
@@ -21,6 +23,8 @@ const verifyToken = (req, res, next) => {
 router.use('/users', userRouter)
 router.use('/posts', postRouter)
 router.use('/droits', droitRouter)
+router.use('/discussions', discussionRouter)
+router.use('/specialities', specialityRouter)
 
 router.get('/', (req, res) => {
     res.send({ message: 'Hello world' });

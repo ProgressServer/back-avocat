@@ -2,8 +2,8 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema;
 
 const schema = new Schema({
-    firstname: { type: String, required: true, },
-    lastname: { type: String, required: true, },
+    firstname: { type: String, },
+    lastname: { type: String, },
     username: { type: String },
     email: { type: String, required: true, },
     password: { type: String, required: true, },
@@ -17,6 +17,10 @@ const schema = new Schema({
     gender: { type: String, },
     website: { type: String, },
     bio: { type: String, },
+    address: { type: String, },
+    city: { type: String, },
+    postalCode: { type: String, },
+    age: { type: Number, },
     activated: { type: Boolean, },
     activationLimit: { type: Date, },
     activationCode: { type: String, },
@@ -32,6 +36,7 @@ const schema = new Schema({
     //     index: true,
     // }],
     profilePicture: { type: String },
+    licenceCard: { type: String },
 }, { timestamps: true });
 
 module.exports = User = mongoose.model('User', schema)

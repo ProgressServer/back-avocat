@@ -10,6 +10,7 @@ const schema = new Schema({
     },
     description: { type: String, },
     image: { type: String, },
+    thumbnail: { type: String }
 }, { timestamps: true });
 
 schema.plugin(mongoosePaginate);

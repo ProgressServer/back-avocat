@@ -1,0 +1,462 @@
+<div id="page-top">
+    <div id="wrapper">
+        <app-sidebar></app-sidebar>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <app-navbar></app-navbar>
+
+
+                <div class="container-fluid">
+                    <h1>Nouveau Droit</h1>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form [formGroup]="droitForm" (ngSubmit)="save()">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+
+                                                <div class="form-group">
+                                                    <label>Titre :</label>
+                                                    <input type="text" class="form-control" formControlName="title"
+                                                        [(ngModel)]="titre"
+                                                        [ngClass]="{'is-valid': d.title.valid, 'is-invalid': d.title.invalid && (d.title.dirty || d.title.touched)}">
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le titre
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Contenue :</label>
+                                                    <textarea rows="3" class="form-control" formControlName="content"
+                                                        [(ngModel)]="contenue"
+                                                        [ngClass]="{'is-valid': d.content.valid, 'is-invalid': d.content.invalid && (d.content.dirty || d.content.touched)}">
+                                                    </textarea>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le contenue
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label>Info :</label>
+                                                    <textarea rows="3" class="form-control" formControlName="more"
+                                                        [(ngModel)]="info"
+                                                        [ngClass]="{'is-valid': c.more.valid, 'is-invalid': c.more.invalid && (c.more.dirty || c.more.touched)}">
+                                                    </textarea>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le info
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid gap-2 col-3 mx-auto">
+                                        <button class="btn btn-primary" type="button" data-toggle="collapse"
+                                            data-target="#multiCollapseExample2" aria-expanded="false"
+                                            aria-controls="multiCollapseExample2" id="multiCollapseExample" style=""
+                                            (click)="showCard()">Ajouter sous
+                                            catégorie</button>
+                                    </div>
+
+
+                                    <div class="container-fluid" *ngIf="isChildren">
+                                        <div class="row align-items-start">
+
+                                            <div class="col-md-7" id="multiCollapseExample2"
+                                                style="margin-top: 1%; margin-left: 20%;">
+                                                <form [formGroup]="childrenForm">
+                                                    <div class="card shadow">
+                                                        <div class="card-body">
+                                                            <div class="row">
+                                                                <div class="col">
+
+                                                                    <div class="form-group">
+                                                                        <label>Titre :</label>
+                                                                        <input type="text" class="form-control"
+                                                                            formControlName="title"
+                                                                            [(ngModel)]="titreCategorie"
+                                                                            [ngClass]="{'is-valid': d.title.valid, 'is-invalid': d.title.invalid && (d.title.dirty || d.title.touched)}">
+                                                                        <div class="invalid-feedback">
+                                                                            Veuillez remplir le titre
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Contenue :</label>
+                                                                        <textarea rows="3" class="form-control"
+                                                                            formControlName="content"
+                                                                            [(ngModel)]="contenueCategorie"
+                                                                            [ngClass]="{'is-valid': d.content.valid, 'is-invalid': d.content.invalid && (d.content.dirty || d.content.touched)}">
+                                                                        </textarea>
+                                                                        <div class="invalid-feedback">
+                                                                            Veuillez remplir le contenue
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <label>Info :</label>
+                                                                        <textarea rows="3" class="form-control"
+                                                                            formControlName="more"
+                                                                            [(ngModel)]="infoCategorie"
+                                                                            [ngClass]="{'is-valid': d.more.valid, 'is-invalid': d.more.invalid && (d.more.dirty || d.more.touched)}">
+                                                                        </textarea>
+                                                                        <div class="invalid-feedback">
+                                                                            Veuillez remplir le info
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-footer text-right">
+                                                            <button class="btn btn-dark mr-2"
+                                                                (click)="droitForm.reset()"
+                                                                type="button">Re-initialiser</button>
+                                                            <button class="btn btn-primary mr-2"
+                                                                (click)="ajouterNouvelleCategorie()" type="button"
+                                                                [disabled]="!childrenForm.valid">Ajouter</button>
+                                                            <button class="btn btn-dark" type="button"
+                                                                data-toggle="collapse"
+                                                                data-target="#multiCollapseExample2"
+                                                                aria-expanded="false"
+                                                                aria-controls="multiCollapseExample2"
+                                                                id="multiCollapseExample"
+                                                                (click)="showCard()">Annuler</button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            <div class="col-md-7">
+                                                <h5>Sous-catégorie:</h5>
+                                                <div class="card shadow"
+                                                    *ngIf="this.droitForm.value.children.length > 0">
+                                                    <div class="card-body">
+                                                        <div class="table-responsive">
+                                                            <table class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">#</th>
+                                                                        <th class="text-center">Titre</th>
+                                                                        <th class="text-center">Contuenue</th>
+                                                                        <th class="text-center">Info</th>
+                                                                        <th colspan="3" class="text-center">Action
+                                                                        </th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr *ngFor="let d of this.droitForm.value.children| paginate
+                                                                            : {
+                                                                                itemsPerPage: tableSize,
+                                                                                currentPage: page,
+                                                                                totalItems: count
+                                                                            }; let i = index">
+                                                                        <td class="text-center"
+                                                                            (click)="changeIDSousCategorie(i)">{{i +
+                                                                            1}}</td>
+                                                                        <td class="text-center"
+                                                                            (click)="changeIDSousCategorie(i)">
+                                                                            {{d.title}}</td>
+                                                                        <td class="text-center"
+                                                                            (click)="changeIDSousCategorie(i)">{{
+                                                                            (d.content.length>13)? (d.content |
+                                                                            slice:0:10)+'...':(d.content) }}</td>
+                                                                        <td class="text-center"
+                                                                            (click)="changeIDSousCategorie(i)">
+                                                                            {{ (d.more.length>13)? (d.more |
+                                                                            slice:0:10)+'...':(d.more) }}</td>
+                                                                        <td class="text-center">
+
+                                                                            <button class="btn btn-primary"
+                                                                                data-toggle="modal"
+                                                                                data-target="#updateModal" type="button"
+                                                                                (click)="getIdToUpdate(i, -1)">
+                                                                                Modifier
+                                                                            </button>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <button class="btn btn-info"
+                                                                                (click)="ajouterDansSousCategorie(i)"
+                                                                                type="button">
+                                                                                Ajouter sous-catégorie
+                                                                            </button>
+                                                                        </td>
+                                                                        <td class="text-center">
+                                                                            <button class="btn btn-danger"
+                                                                                (click)="deleteChildren(i, -1)">
+                                                                                Supprimer
+                                                                            </button>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="d-flex justify-content-center">
+                                                                <pagination-controls previousLabel="Prev"
+                                                                    nextLabel="Next"
+                                                                    (pageChange)="onTableDataChange($event)">
+                                                                </pagination-controls>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <div class="col-md-5">
+                                                <h5>Dans Sous-catégorie:</h5>
+                                                <div *ngIf="this.droitForm.value.children.length > 0">
+                                                    <div class="card shadow">
+                                                        <div class="card-body">
+                                                            <div class="table-responsive">
+                                                                <table class="table">
+                                                                    <thead>
+                                                                        <tr>
+                                                                            <th class="text-center">#</th>
+                                                                            <th class="text-center">Titre</th>
+                                                                            <th class="text-center">Contuenue</th>
+                                                                            <th class="text-center">Info</th>
+                                                                            <th class="text-center">Action
+                                                                            </th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody>
+                                                                        <tr *ngFor="let d  of this.droitForm.value.children[this.idSousChildrenTemp].children | paginate
+                                                                    : {
+                                                                        itemsPerPage: tableSize,
+                                                                        currentPage: page,
+                                                                        totalItems: count
+                                                                    }; let j = index">
+                                                                            <td class="text-center">
+                                                                                {{j + 1}}</td>
+                                                                            <td class="text-center">
+                                                                                {{d.title}}
+                                                                            </td>
+                                                                            <td class="text-center">
+                                                                                {{
+                                                                                (d.content.length>13)?
+                                                                                (d.content |
+                                                                                slice:0:10)+'...':(d.content)
+                                                                                }}</td>
+                                                                            <td class="text-center">
+                                                                                {{
+                                                                                (d.more.length>13)?
+                                                                                (d.more |
+                                                                                slice:0:10)+'...':(d.more)
+                                                                                }}</td>
+                                                                            <td class="text-center">
+                                                                                <button class="btn btn-primary mr-1"
+                                                                                    type="button" data-toggle="modal"
+                                                                                    data-target="#updateModal"
+                                                                                    (click)="getIdToUpdate(this.idSousChildrenTemp,j)">
+                                                                                    Modifier
+                                                                                </button>
+
+                                                                                <button class="btn btn-danger"
+                                                                                    type="button"
+                                                                                    style="margin-top: 1%;"
+                                                                                    (click)="deleteChildren(this.idSousChildrenTemp,j)">
+                                                                                    Supprimer
+                                                                                </button>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <div class="d-flex justify-content-center">
+                                                                    <pagination-controls previousLabel="Prev"
+                                                                        nextLabel="Next"
+                                                                        (pageChange)="onTableDataChange($event)">
+                                                                    </pagination-controls>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class="row"> -->
+
+                                            <!-- </div> -->
+
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="card-footer text-right">
+                                        <button class="btn btn-dark mr-2" (click)="droitForm.reset()"
+                                            type="button">Re-initialiser</button>
+                                        <!-- <button type="button" [disabled]="loader || !droitForm.valid"
+                                            class="btn btn-info mr-2" *ngIf="afficherBouton"
+                                            (click)="ajouterSousCatgorie()"> Ajouter
+                                            sous-catégorie
+                                        </button> -->
+                                        <button [disabled]="loader || !droitForm.valid" class="btn btn-primary"
+                                            type="submit">
+                                            <ng-container *ngIf="!loader">
+                                                Terminer
+                                            </ng-container>
+                                            <ng-container *ngIf="loader">
+                                                <i class="fa fa-spin fa-spinner"></i> Sauvegarde en cours...
+                                            </ng-container>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="updateModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <button type="button" id="updateCloseModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-title text-center mb-4">
+                    <h2>Modifier</h2>
+                </div>
+                <div class="d-flex flex-column text-center">
+                    <form [formGroup]="childrenForm" (ngSubmit)="updateDroitParent()">
+
+                        <div class="form-group">
+                            <label>Titre :</label>
+                            <input type="text" class="form-control" formControlName="title" [(ngModel)]="titreCategorie"
+                                [ngClass]="{'is-valid': d.title.valid, 'is-invalid': d.title.invalid && (d.title.dirty || d.title.touched)}">
+                            <div class="invalid-feedback">
+                                Veuillez remplir le titre
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Contenue :</label>
+                            <textarea rows="3" type="text" class="form-control" formControlName="content"
+                                [(ngModel)]="contenueCategorie"
+                                [ngClass]="{'is-valid': d.content.valid, 'is-invalid': d.content.invalid && (d.content.dirty || d.content.touched)}">
+                            </textarea>
+                            <div class="invalid-feedback">
+                                Veuillez remplir le contenue
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Info :</label>
+                            <textarea rows="3" type="text" class="form-control" formControlName="more"
+                                [(ngModel)]="infoCategorie"
+                                [ngClass]="{'is-valid': d.more.valid, 'is-invalid': d.more.invalid && (d.more.dirty || d.more.touched)}">
+                            </textarea>
+                            <div class="invalid-feedback">
+                                Veuillez remplir le info
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button [disabled]="!childrenForm.valid" type="submit" class="btn btn-secondary">
+                                <ng-container> Terminer</ng-container>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="sousCategorieModal" tabindex="-1" role="dialog" aria-labelledby="sousCategorieModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <button type="button" id="insertCloseModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-title text-center mb-4">
+                    <h2>Ajouter sous élément(s) droit</h2>
+                </div>
+                <div class="d-flex flex-column text-center">
+                    <form [formGroup]="childrenForm" (ngSubmit)="getInfoChildren()">
+
+                        <div class="form-group">
+                            <label>Titre :</label>
+                            <input type="text" class="form-control" formControlName="title" [(ngModel)]="titreCategorie"
+                                [ngClass]="{'is-valid': d.title.valid, 'is-invalid': d.title.invalid && (d.title.dirty || d.title.touched)}">
+                            <div class="invalid-feedback">
+                                Veuillez remplir le titre
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Contenue :</label>
+                            <textarea rows="3" type="text" class="form-control" formControlName="content"
+                                [(ngModel)]="contenueCategorie"
+                                [ngClass]="{'is-valid': d.content.valid, 'is-invalid': d.content.invalid && (d.content.dirty || d.content.touched)}">
+                        </textarea>
+                            <div class="invalid-feedback">
+                                Veuillez remplir le contenue
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Info :</label>
+                            <textarea rows="3" type="text" class="form-control" formControlName="more"
+                                [(ngModel)]="infoCategorie"
+                                [ngClass]="{'is-valid': d.more.valid, 'is-invalid': d.more.invalid && (d.more.dirty || d.more.touched)}">
+                        </textarea>
+                            <div class="invalid-feedback">
+                                Veuillez remplir le info
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button type="submit" (click)="closeModal()" class="btn btn-secondary mr-2">
+                                <ng-container> Annuler</ng-container>
+                            </button>
+                            <button [disabled]="!childrenForm.valid" type="submit" class="btn btn-info mr-2">
+                                <ng-container> Ajouter sous-catégorie</ng-container>
+                            </button>
+                            <button [disabled]="!childrenForm.valid" type="submit" class="btn btn-primary">
+                                <ng-container> Ajouter</ng-container>
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal info -->
+<!-- Modal info -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header">
+                    {{d.title.value}}
+                    <button type="button" id="infoCloseModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>{{d.content.value}}</p>
+                        <footer class="blockquote-footer"><cite>{{d.more.value}}</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

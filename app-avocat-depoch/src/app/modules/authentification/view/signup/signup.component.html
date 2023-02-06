@@ -1,0 +1,184 @@
+<div id="page-top">
+    <div id="wrapper">
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-2"></div>
+                        <div class="col-md-8">
+                            <h1 style="text-align: center;">S'inscrire</h1>
+                            <form [formGroup]="formGroup" (ngSubmit)="signUp()">
+                                <div class="card shadow">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>firstname :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="firstname" [(ngModel)]="firstname"
+                                                                    [ngClass]="{'is-valid': c.firstname.valid, 'is-invalid': c.firstname.invalid && (c.firstname.dirty || c.firstname.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>lastname :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="lastname" [(ngModel)]="lastname"
+                                                                    [ngClass]="{'is-valid': c.lastname.valid, 'is-invalid': c.lastname.invalid && (c.lastname.dirty || c.lastname.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>username :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="username" [(ngModel)]="username"
+                                                                    [ngClass]="{'is-valid': c.username.valid, 'is-invalid': c.username.invalid && (c.username.dirty || c.username.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label>email :</label>
+                                                                <input type="email" class="form-control"
+                                                                    formControlName="email" [(ngModel)]="email"
+                                                                    [ngClass]="{'is-valid': c.email.valid, 'is-invalid': c.email.invalid && (c.email.dirty || c.email.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label>password :</label>
+                                                                <input type="password" class="form-control"
+                                                                    formControlName="password" [(ngModel)]="password"
+                                                                    [ngClass]="{'is-valid': c.password.valid, 'is-invalid': c.password.invalid && (c.password.dirty || c.password.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label>phone :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="phone" [(ngModel)]="phone"
+                                                                    [ngClass]="{'is-valid': c.phone.valid, 'is-invalid': c.phone.invalid && (c.phone.dirty || c.phone.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+
+                                                            <div class="form-group">
+                                                                <label>barreau :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="barreau" [(ngModel)]="barreau"
+                                                                    [ngClass]="{'is-valid': c.barreau.valid, 'is-invalid': c.barreau.invalid && (c.barreau.dirty || c.barreau.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+
+
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label>website :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="website" [(ngModel)]="website"
+                                                                    [ngClass]="{'is-valid': c.website.valid, 'is-invalid': c.website.invalid && (c.website.dirty || c.website.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>bio :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="bio" [(ngModel)]="bio"
+                                                                    [ngClass]="{'is-valid': c.bio.valid, 'is-invalid': c.bio.invalid && (c.bio.dirty || c.bio.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>activationLimit :</label>
+                                                                <input type="date" class="form-control"
+                                                                    formControlName="activationLimit"
+                                                                    [(ngModel)]="activationLimit"
+                                                                    [ngClass]="{'is-valid': c.activationLimit.valid, 'is-invalid': c.activationLimit.invalid && (c.activationLimit.dirty || c.activationLimit.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>activationCode :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="activationCode"
+                                                                    [(ngModel)]="activationCode"
+                                                                    [ngClass]="{'is-valid': c.activationCode.valid, 'is-invalid': c.activationCode.invalid && (c.activationCode.dirty || c.activationCode.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>roles :</label>
+                                                                <input type="text" class="form-control"
+                                                                    formControlName="roles" [(ngModel)]="roles"
+                                                                    [ngClass]="{'is-valid': c.roles.valid, 'is-invalid': c.roles.invalid && (c.roles.dirty || c.roles.touched)}">
+                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label>profilePicture :</label>
+                                                                <input type="file" class="form-control"
+                                                                    formControlName="profilePicture"
+                                                                    (change)="handleUpload($event)"                                                                    [ngClass]="{'is-valid': c.profilePicture.valid, 'is-invalid': c.profilePicture.invalid && (c.profilePicture.dirty || c.profilePicture.touched)}">                                                                <div class="invalid-feedback">
+                                                                    Veuillez remplir le champ
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!-- <img [src]="imagePath" ngIf="isImage"> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer text-right">
+                                        <button *ngIf="!loader" [disabled]="loader || !formGroup.valid"
+                                            class="btn btn-primary btn-block" type="submit">S'inscrire</button>
+                                        <button *ngIf="loader" class="btn btn-primary btn-block" type="button"
+                                            disabled><i class="fa fa-spinner fa-spin"></i> Inscription en
+                                            cours...</button>
+                                        <button *ngIf="!loader" [disabled]="loader" class="btn btn-success btn-block"
+                                            type="button" (click)="login()">Se Connecter</button>
+
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                        <div class="col-md-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Ajouter catégorie droit-->

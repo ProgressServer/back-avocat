@@ -1,0 +1,647 @@
+<div id="page-top">
+    <div id="wrapper">
+        <app-sidebar></app-sidebar>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div id="content">
+                <app-navbar></app-navbar>
+                <div class="container-fluid">
+                    <h3 class="text-dark mb-1" style="text-align: center;">{{titreMere}}</h3>
+                    <div class="d-flex justify-content-around">
+                        <div class="col-md-6">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Titre</th>
+                                                    <th>Contuenue</th>
+                                                    <th>Info</th>
+                                                    <th colspan="3" class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="dataResultChildren.length > 0 && !loaderView">
+                                                <tr *ngFor="let d of dataResultChildren| paginate
+                                                : {
+                                                    itemsPerPage: tableSize,
+                                                    currentPage: page,
+                                                    totalItems: count
+                                                  }; let i = index">
+                                                    <td (click)=" initForm(d)" data-toggle="modal"
+                                                        data-target="#infoModal" class="pointer">{{i + 1}}</td>
+                                                    <td (click)=" initForm(d)" data-toggle="modal"
+                                                        data-target="#infoModal" class="pointer">{{d.title}}</td>
+                                                    <td (click)=" initForm(d)" data-toggle="modal"
+                                                        data-target="#infoModal" class="pointer">{{
+                                                        (d.content.length>13)?
+                                                        (d.content |
+                                                        slice:0:10)+'...':(d.content) }}</td>
+                                                    <td (click)=" initForm(d)" data-toggle="modal"
+                                                        data-target="#infoModal" class="pointer">
+                                                        {{ (d.more.length>13)? (d.more |
+                                                        slice:0:10)+'...':(d.more) }}</td>
+                                                    <td *ngIf=" d.children.length>0">
+                                                        <button class="btn btn-info"
+                                                            (click)="showSousCategorie(i); changeIdToInsert(i)">
+                                                            Afficher
+                                                            sous catégorie
+                                                        </button>
+                                                    </td>
+                                                    <td *ngIf=" d.children.length==0">
+                                                        <button class="btn btn-info"
+                                                            (click)="initForm(d); changeIdChildren(d); changeIdToInsert(i)"
+                                                            data-toggle="modal" data-target="#newChildrenModalInsert">
+                                                            Ajouter sous
+                                                            catégorie
+                                                        </button>
+                                                    </td>
+                                                    <td>
+                                                        <button class=" btn btn-primary" (click)="initForm(d)"
+                                                            data-toggle="modal" data-target="#updateModal"> Modifier
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-danger" (click)="initForm(d)"
+                                                            data-toggle="modal" data-target="#deleteModal">
+                                                            Supprimer
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="dataResultChildren.length == 0 && !loaderView">
+                                                <tr>
+                                                    <td colspan="4" class="text-center">Aucun children</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="loaderView">
+                                                <tr>
+                                                    <td colspan="4" class="text-center"><i
+                                                            class="fa fa-spinner fa-spin"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+
+                                        <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+                                            <button class="btn btn-primary" data-toggle="modal"
+                                                data-target="#newChildrenModal"> Ajouter catégorie
+                                            </button>
+                                        </div>
+                                        <div class="d-flex justify-content-center">
+                                            <pagination-controls previousLabel="Prev" nextLabel="Next"
+                                                (pageChange)="onTableDataChange($event)">
+                                            </pagination-controls>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6" *ngIf="estSousCategorie">
+                            <div class="card shadow">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">#</th>
+                                                    <th>Titre</th>
+                                                    <th>Contuenue</th>
+                                                    <th>Info</th>
+                                                    <th colspan="3" class="text-center">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody *ngIf="dataResultChildrenTemp.length > 0 && !loaderView">
+                                                <tr *ngFor="let d of dataResultChildrenTemp| paginate
+                                                : {
+                                                    itemsPerPage: tableSize,
+                                                    currentPage: page,
+                                                    totalItems: count
+                                                  }; let i = index">
+                                                    <td (click)="initForm(d)" data-toggle="modal"
+                                                        data-target="#infoModal" class="pointer">{{i + 1}}</td>
+                                                    <td (click)="initForm(d)" data-toggle="modal"
+                                                        data-target="#infoModal" class="pointer">{{d.title}}
+                                                    </td>
+                                                    <td (click)="initForm(d)" data-toggle="modal"
+                                                        data-target="#infoModal" class="pointer">{{
+                                                        (d.content.length>13)? (d.content |
+                                                        slice:0:10)+'...':(d.content) }}</td>
+                                                    <td (click)="initForm(d)" data-toggle="modal"
+                                                        data-target="#infoModal" class="pointer">
+                                                        {{ (d.more.length>13)? (d.more |
+                                                        slice:0:10)+'...':(d.more) }}</td>
+                                                    <td *ngIf="d.children">
+                                                        <button class="btn btn-info" (click)="initForm(d)"
+                                                            *ngIf="d.children.length>0" data-toggle="modal"
+                                                            data-target="#updateModal"> Afficher
+                                                            sous catégorie
+                                                        </button>
+                                                        <button class="btn btn-info" (click)="initForm(d)"
+                                                            *ngIf="d.children.length == 0" data-toggle="modal"
+                                                            data-target="#updateModal"> Ajouter
+                                                            sous
+                                                            catégorie
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-primary" (click)="initForm(d)"
+                                                            data-toggle="modal" data-target="#updateModalChildren">
+                                                            Modifier
+                                                        </button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button class="btn btn-danger"
+                                                            (click)="initForm(d); getIdSuppr(i)" data-toggle="modal"
+                                                            data-target="#deleteModalChildren">
+                                                            Supprimer
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="dataResultChildren.length == 0 && !loaderView">
+                                                <tr>
+                                                    <td colspan="4" class="text-center">Aucun children</td>
+                                                </tr>
+                                            </tbody>
+                                            <tbody *ngIf="loaderView">
+                                                <tr>
+                                                    <td colspan="4" class="text-center"><i
+                                                            class="fa fa-spinner fa-spin"></i></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+
+                                        <div class="d-flex justify-content-center" style="margin-bottom: 2%;">
+                                            <button class="btn btn-primary" data-toggle="modal"
+                                                data-target="#newChildrenModalInsert"> Ajouter
+                                            </button>
+                                        </div>
+
+                                        <div class="d-flex justify-content-center">
+                                            <pagination-controls previousLabel="Prev" nextLabel="Next"
+                                                (pageChange)="onTableDataChange($event)">
+                                            </pagination-controls>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal update-->
+                        <div class="modal fade" id="updateModal" tabindex="-1" role="dialog"
+                            aria-labelledby="updateModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0">
+                                        <button type="button" id="updateCloseModal" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-title text-center mb-4">
+                                            <h2>Modifier</h2>
+                                        </div>
+                                        <div class="d-flex flex-column text-center">
+                                            <form [formGroup]="childrenForm" (ngSubmit)="update()">
+
+                                                <div class="form-group">
+                                                    <input
+                                                        [ngClass]="{'is-valid': d.title.valid, 'is-invalid': d.title.invalid && (d.title.dirty || d.title.touched)}"
+                                                        type="text" formControlName="title" class="form-control"
+                                                        placeholder="Titre">
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le titre.
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea rows="3"
+                                                        [ngClass]="{'is-valid': d.content.valid, 'is-invalid': d.content.invalid && (d.content.dirty || d.content.touched)}"
+                                                        type="text" formControlName="content" class="form-control"
+                                                        placeholder="Contenue">
+                                                    </textarea>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le contenue.
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea rows="3"
+                                                        [ngClass]="{'is-valid': d.more.valid, 'is-invalid': d.more.invalid && (d.more.dirty || d.more.touched)}"
+                                                        type="text" formControlName="more" class="form-control"
+                                                        placeholder="Info">
+                                                    </textarea>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir l'info.
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-grid gap-2">
+                                                    <button [disabled]="!childrenForm.valid || loader" type="submit"
+                                                        class="btn btn-primary">
+                                                        <i *ngIf="loader" style="margin-left: -12px; margin-right: 8px;"
+                                                            class="fa fa-circle-o-notch fa-spin"></i>
+                                                        <ng-container *ngIf="!loader"> Enregistrer</ng-container>
+                                                        <ng-container *ngIf="loader"> Enregistrement en
+                                                            cours</ng-container>
+
+                                                    </button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Modal update children-->
+                        <div class="modal fade" id="updateModalChildren" tabindex="-1" role="dialog"
+                            aria-labelledby="updateModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0">
+                                        <button type="button" id="updateCloseModal" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-title text-center mb-4">
+                                            <h2>Modifier sous catégorie</h2>
+                                        </div>
+                                        <div class="d-flex flex-column text-center">
+                                            <form [formGroup]="childrenForm" (ngSubmit)="updateSousCategorie()">
+
+                                                <div class="form-group">
+                                                    <input
+                                                        [ngClass]="{'is-valid': d.title.valid, 'is-invalid': d.title.invalid && (d.title.dirty || d.title.touched)}"
+                                                        type="text" formControlName="title" class="form-control"
+                                                        placeholder="Titre">
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le titre.
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea rows="3"
+                                                        [ngClass]="{'is-valid': d.content.valid, 'is-invalid': d.content.invalid && (d.content.dirty || d.content.touched)}"
+                                                        type="text" formControlName="content" class="form-control"
+                                                        placeholder="Contenue">
+                                                    </textarea>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le contenue.
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea rows="3"
+                                                        [ngClass]="{'is-valid': d.more.valid, 'is-invalid': d.more.invalid && (d.more.dirty || d.more.touched)}"
+                                                        type="text" formControlName="more" class="form-control"
+                                                        placeholder="Info">
+                                                    </textarea>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir l'info.
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-grid gap-2">
+                                                    <button [disabled]="!childrenForm.valid || loader" type="submit"
+                                                        class="btn btn-primary">
+                                                        <i *ngIf="loader" style="margin-left: -12px; margin-right: 8px;"
+                                                            class="fa fa-circle-o-notch fa-spin"></i>
+                                                        <ng-container *ngIf="!loader"> Enregistrer</ng-container>
+                                                        <ng-container *ngIf="loader"> Enregistrement en
+                                                            cours</ng-container>
+
+                                                    </button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal insert -->
+                        <div class="modal fade" id="insertModal" tabindex="-1" role="dialog"
+                            aria-labelledby="insertModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0">
+                                        <button type="button" id="insertCloseModal" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-title text-center mb-4">
+                                            <h2>Ajouter sous catégorie</h2>
+                                        </div>
+                                        <div class="d-flex flex-column text-center">
+                                            <form [formGroup]="newChildrenForm" (ngSubmit)="insertChildren()">
+
+                                                <div class="form-group">
+                                                    <input
+                                                        [ngClass]="{'is-valid': d.title.valid, 'is-invalid': d.title.invalid && (d.title.dirty || d.title.touched)}"
+                                                        type="text" formControlName="title" class="form-control"
+                                                        placeholder="Titre">
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le titre.
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea rows="3"
+                                                        [ngClass]="{'is-valid': d.content.valid, 'is-invalid': d.content.invalid && (d.content.dirty || d.content.touched)}"
+                                                        type="text" formControlName="content" class="form-control"
+                                                        placeholder="Contenue">
+                                                    </textarea>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir le contenue.
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea rows="3"
+                                                        [ngClass]="{'is-valid': d.more.valid, 'is-invalid': d.more.invalid && (d.more.dirty || d.more.touched)}"
+                                                        type="text" formControlName="more" class="form-control"
+                                                        placeholder="Info">
+                                                    </textarea>
+                                                    <div class="invalid-feedback">
+                                                        Veuillez remplir l'info.
+                                                    </div>
+                                                </div>
+
+                                                <div class="d-grid gap-2">
+                                                    <button [disabled]="!childrenForm.valid || loader" type="submit"
+                                                        class="btn btn-primary">
+                                                        <i *ngIf="loader" style="margin-left: -12px; margin-right: 8px;"
+                                                            class="fa fa-circle-o-notch fa-spin"></i>
+                                                        <ng-container *ngIf="!loader"> Enregistrer</ng-container>
+                                                        <ng-container *ngIf="loader"> Enregistrement en
+                                                            cours</ng-container>
+
+                                                    </button>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal delete -->
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+                            aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0">
+                                        <button type="button" id="deleteCloseModal" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-title text-center mb-4">
+                                            <h2>Supprimer</h2>
+                                        </div>
+                                        <div class="d-flex flex-column text-center">
+                                            <form [formGroup]="childrenForm" (ngSubmit)="delete()">
+                                                <div class="form-group">
+                                                    <p>Etes-vous sûr de supprimer {{d.title.value}}?</p>
+                                                </div>
+                                                <div class="d-grid gap-2">
+                                                    <button type="submit" (click)="noDelete()"
+                                                        class="btn btn-secondary mr-2"> Annuler</button>
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i *ngIf="loader" style="margin-left: -12px; margin-right: 8px;"
+                                                            class="fa fa-circle-o-notch fa-spin"></i>
+                                                        <ng-container *ngIf="!loader"> Supprimer</ng-container>
+                                                        <ng-container *ngIf="loader"> Suppression en
+                                                            cours</ng-container>
+                                                    </button>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Modal delete children -->
+                        <div class="modal fade" id="deleteModalChildren" tabindex="-1" role="dialog"
+                            aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0">
+                                        <button type="button" id="deleteCloseModal" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-title text-center mb-4">
+                                            <h2>Supprimer</h2>
+                                        </div>
+                                        <div class="d-flex flex-column text-center">
+                                            <form [formGroup]="childrenForm" (ngSubmit)="deleteChildren()">
+                                                <div class="form-group">
+                                                    <p>Etes-vous sûr de supprimer {{d.title.value}}?</p>
+                                                </div>
+                                                <div class="d-grid gap-2">
+                                                    <button type="submit" (click)="noDelete()"
+                                                        class="btn btn-secondary mr-2"> Annuler</button>
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i *ngIf="loader" style="margin-left: -12px; margin-right: 8px;"
+                                                            class="fa fa-circle-o-notch fa-spin"></i>
+                                                        <ng-container *ngIf="!loader"> Supprimer</ng-container>
+                                                        <ng-container *ngIf="loader"> Suppression en
+                                                            cours</ng-container>
+                                                    </button>
+
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal new -->
+<div class="modal fade" id="newChildrenModal" tabindex="-1" role="dialog" aria-labelledby="newChildrenModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <button type="button" id="updateCloseModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-title text-center mb-4">
+                    <h2>Ajouter</h2>
+                </div>
+                <div class="d-flex flex-column text-center">
+                    <form [formGroup]="newChildrenForm" (ngSubmit)="insert()">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+
+                                        <div class="form-group">
+                                            <label>Titre :</label>
+                                            <input type="text" class="form-control" formControlName="title"
+                                                [(ngModel)]="title"
+                                                [ngClass]="{'is-valid': i.title.valid, 'is-invalid': i.title.invalid && (i.title.dirty || i.title.touched)}">
+                                            <div class="invalid-feedback">
+                                                Veuillez remplir le titre
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Contenue :</label>
+                                            <textarea rows="3" class="form-control" formControlName="content"
+                                                [(ngModel)]="content"
+                                                [ngClass]="{'is-valid': i.content.valid, 'is-invalid': i.content.invalid && (i.content.dirty || i.content.touched)}">
+                                            </textarea>
+                                            <div class="invalid-feedback">
+                                                Veuillez remplir le contenue
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Info :</label>
+                                            <textarea rows="3" class="form-control" formControlName="more"
+                                                [(ngModel)]="more"
+                                                [ngClass]="{'is-valid': i.more.valid, 'is-invalid': i.more.invalid && (i.more.dirty || i.more.touched)}">
+                                            </textarea>
+                                            <div class="invalid-feedback">
+                                                Veuillez remplir l' info
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-dark mr-2" (click)="newChildrenForm.reset()"
+                                    type="button">Re-initialiser</button>
+                                <button [disabled]="loader || !newChildrenForm.valid" class="btn btn-primary"
+                                    type="submit">
+                                    <ng-container *ngIf="!loader">
+                                        Ajouter
+                                    </ng-container>
+                                    <ng-container *ngIf="loader">
+                                        <i class="fa fa-spin fa-spinner"></i> Sauvegarde en cours...
+                                    </ng-container>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal new children-->
+<div class="modal fade" id="newChildrenModalInsert" tabindex="-1" role="dialog" aria-labelledby="newChildrenModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+                <button type="button" id="updateCloseModal" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-title text-center mb-4">
+                    <h2>Ajouter</h2>
+                </div>
+                <div class="d-flex flex-column text-center">
+                    <form [formGroup]="newChildrenForm" (ngSubmit)="insertChildren()">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+
+                                        <div class="form-group">
+                                            <label>Titre :</label>
+                                            <input type="text" class="form-control" formControlName="title"
+                                                [(ngModel)]="title"
+                                                [ngClass]="{'is-valid': i.title.valid, 'is-invalid': i.title.invalid && (i.title.dirty || i.title.touched)}">
+                                            <div class="invalid-feedback">
+                                                Veuillez remplir le titre
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Contenue :</label>
+                                            <textarea rows="3" class="form-control" formControlName="content"
+                                                [(ngModel)]="content"
+                                                [ngClass]="{'is-valid': i.content.valid, 'is-invalid': i.content.invalid && (i.content.dirty || i.content.touched)}">
+                                            </textarea>
+                                            <div class="invalid-feedback">
+                                                Veuillez remplir le contenue
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Info :</label>
+                                            <textarea rows="3" class="form-control" formControlName="more"
+                                                [(ngModel)]="more"
+                                                [ngClass]="{'is-valid': i.more.valid, 'is-invalid': i.more.invalid && (i.more.dirty || i.more.touched)}">
+                                            </textarea>
+                                            <div class="invalid-feedback">
+                                                Veuillez remplir l' info
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer text-right">
+                                <button class="btn btn-dark mr-2" (click)="newChildrenForm.reset()"
+                                    type="button">Re-initialiser</button>
+                                <button [disabled]="loader || !newChildrenForm.valid" class="btn btn-primary"
+                                    type="submit">
+                                    <ng-container *ngIf="!loader">
+                                        Ajouter
+                                    </ng-container>
+                                    <ng-container *ngIf="loader">
+                                        <i class="fa fa-spin fa-spinner"></i> Sauvegarde en cours...
+                                    </ng-container>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal info -->
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="infoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header">
+                    {{d.title.value}}
+                    <button type="button" id="infoCloseModal" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>Contenue</p>
+                        <p>{{d.content.value}}</p>
+                        <footer class="blockquote-footer"><cite>Info: {{d.more.value}}</cite></footer>
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

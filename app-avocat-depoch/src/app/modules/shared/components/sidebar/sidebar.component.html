@@ -1,0 +1,28 @@
+<nav class="navbar navbar-dark align-items-start sidebar sidebar-dark accordion bg-gradient-info p-0"
+  [ngClass]="{'toggled': minify}">
+  <div class="container-fluid d-flex flex-column p-0">
+    <a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0"
+      [routerLink]="['/admin/droit']">
+      <div class="sidebar-brand-icon rotate-n-15"></div>
+      <div class="sidebar-brand-text mx-3"><span>AVOCAT DEPOCH&nbsp;</span></div>
+    </a>
+    <hr class="sidebar-divider my-0">
+    <ul class="nav navbar-nav text-light" id="accordionSidebar">
+      <li class="nav-item dropdown">
+        <a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+          <span>Droit</span></a>
+        <div class="dropdown-menu" role="menu">
+          <a class="dropdown-item" role="presentation" [routerLink]="['/admin/droit']" [routerLinkActive]="'active'"
+            [routerLinkActiveOptions]="{exact: true}">Liste droit</a>
+          <a class=" dropdown-item" role="presentation" (click)="this.isChildren==false"
+            [routerLink]="['/admin/droit/nouveau']" [routerLinkActive]="'active'"
+            [routerLinkActiveOptions]="{exact: true}">Nouveau droit</a>
+        </div>
+      </li>
+    </ul>
+    <div class="text-center d-none d-md-inline">
+      <button class="btn rounded-circle border-0" id="sidebarToggle" (click)="minify= !minify" type="button"
+        style="margin-top: 400px;"></button>
+    </div>
+  </div>
+</nav>

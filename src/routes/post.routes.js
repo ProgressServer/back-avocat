@@ -109,7 +109,7 @@ router.get('/', async (req, res) => {
         const result = await Post.find(filter, null, options)
             .populate({
                 path: 'owner',
-                select: '_id'
+                select: '_id firstname lastname username profilePicture'
             })
         res.send(result)
     } catch (error) {
@@ -159,7 +159,7 @@ router.post('/', handleUpload, async (req, res) => {
     try {
         console.log('save post body', req.body)
         console.log('save post typoe', req.headers['content-type'])
-        console.log('save post files', req.file, req.files)
+        console.log('save post files', req.file)
         const data = req.body
         // const files = req.files || []
         // const filesToSave = []
@@ -168,6 +168,12 @@ router.post('/', handleUpload, async (req, res) => {
         // }
         // data.image = files
         data.image = req.file.filename
+        const imageThumbnail = require('image-thumbnail');
+        const fs = require('fs');
+        const thumbnail = await imageThumbnail(`./uploads/${req.file.filename}`, { responseType: 'base64' });
+        const thumbnailName = `thmbnl-${req.file.filename}`
+        fs.writeFileSync(`./uploads/${thumbnailName}`, thumbnail, 'base64')
+        data.thumbnail = thumbnailName
         let post = new Post(data)
 
         post = await post.save()

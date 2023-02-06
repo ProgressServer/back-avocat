@@ -1,0 +1,127 @@
+.timetable {
+  padding-bottom: 100px;
+  overflow: hidden;
+}
+
+.timetable .section_title {
+  color: #FFFFFF;
+}
+
+.timetable_filtering {
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.timetable_filtering ul li {
+  position: relative;
+  font-size: 16px;
+  font-weight: 500;
+  color: #FFFFFF;
+  cursor: pointer;
+  white-space: nowrap;
+  margin-bottom: 30px;
+}
+
+.timetable_filtering ul li:not(:last-of-type) {
+  margin-right: 59px;
+}
+
+.timetable_filtering ul li.active, .timetable_filtering ul li:hover {
+  color: #f98c00;
+}
+
+.timetable_filtering ul li.active::after {
+  display: block;
+  position: absolute;
+  left: -5px;
+  bottom: -8px;
+  width: calc(100% + 10px);
+  height: 2px;
+  background: #f98c00;
+  content: '';
+}
+
+.timetable_container {
+  margin-top: 62px;
+  width: 1100px;
+  left: -78px;
+}
+
+.tt_day {
+  width: calc((100% - 48px) / 7);
+  cursor: pointer;
+}
+
+.tt_title {
+  width: 100%;
+  height: 46px;
+  background: #ffba78;
+  text-align: center;
+  line-height: 46px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  margin-bottom: 17px;
+}
+
+.tt_class {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 145px;
+  background: #FFFFFF;
+}
+
+.tt_class:not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.tt_class.empty {
+  background: #565656;
+}
+
+.tt_class.complete {
+  background: #dbdbdb;
+}
+
+.tt_class_title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #262626;
+  line-height: 0.75;
+}
+
+.tt_class_instructor {
+  font-size: 12px;
+  font-weight: 500;
+  color: #535353;
+  line-height: 0.75;
+  margin-top: 16px;
+}
+
+.complete > .tt_class_instructor {
+  font-weight: bold;
+  font-size: 1.2em;
+  color: red;
+}
+
+.tt_class_time {
+  font-size: 24px;
+  font-weight: 600;
+  color: #ffba78;
+  line-height: 0.75;
+  margin-top: 28px;
+}
+
+.scrollable-x {
+  overflow-x: auto;
+}
+
